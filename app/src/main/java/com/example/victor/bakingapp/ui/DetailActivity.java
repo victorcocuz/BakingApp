@@ -13,9 +13,9 @@ import com.example.victor.bakingapp.objects.StepItem;
 
 import java.util.ArrayList;
 
-public class RecipeDetailActivity extends AppCompatActivity {
+public class DetailActivity extends AppCompatActivity {
 
-    private static final String LOG_TAG = RecipeDetailActivity.class.getSimpleName();
+    private static final String LOG_TAG = DetailActivity.class.getSimpleName();
     static int recipeId;
     static int stepIndex = 0;
     ArrayList<StepItem> stepItems = new ArrayList<>();
@@ -26,7 +26,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_recipe_detail);
 
         //Add video fragment
-        RecipeVideosFragment recipeVideosFragment = new RecipeVideosFragment();
+        DetailVideosFragment recipeVideosFragment = new DetailVideosFragment();
 
         if (getIntent() != null) {
             Bundle bundle = getIntent().getExtras();
@@ -54,7 +54,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (stepIndex > 0) {
                     stepIndex--;
-                    RecipeVideosFragment newRecipeVideosFragment = new RecipeVideosFragment();
+                    DetailVideosFragment newRecipeVideosFragment = new DetailVideosFragment();
                     newRecipeVideosFragment.setStepIndex(stepIndex);
                     newRecipeVideosFragment.setStepItems(stepItems);
                     fragmentManager.beginTransaction()
@@ -72,7 +72,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (stepIndex < stepItems.size() - 1) {
                     stepIndex++;
-                    RecipeVideosFragment newRecipeVideosFragment = new RecipeVideosFragment();
+                    DetailVideosFragment newRecipeVideosFragment = new DetailVideosFragment();
                     newRecipeVideosFragment.setStepIndex(stepIndex);
                     newRecipeVideosFragment.setStepItems(stepItems);
                     fragmentManager.beginTransaction()

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.RecipeActivity">
+
+    <ImageView
+        android:id="@+id/recipe_background_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:background="@color/colorAccent"
+        android:contentDescription="@string/recipe_background_view"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="@+id/recipe_button_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:id="@+id/recipe_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@id/recipe_button_view"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/recipe_foreground_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!--Title-->
+            <View
+                android:id="@+id/recipe_background_drop"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@drawable/backdrop_gradient"
+                app:layout_constraintVertical_weight="1"
+                tools:background="@drawable/backdrop_gradient" />
+
+            <TextView
+                android:id="@+id/recipe_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_xxxlarge"
+                android:layout_marginLeft="@dimen/margin_xxlarge"
+                android:layout_marginStart="@dimen/margin_xxlarge"
+                android:fontFamily="@font/comfortaa_bold"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_headline"
+                app:layout_constraintBottom_toBottomOf="@id/recipe_background_drop"
+                app:layout_constraintLeft_toLeftOf="parent"
+                tools:targetApi="jelly_bean"
+                tools:text="@string/list_nutella_pie" />
+
+            <ImageView
+                android:id="@+id/recipe_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/icon_arrow"
+                android:src="@drawable/arrow"
+                app:layout_constraintBottom_toBottomOf="@id/recipe_background_drop"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/recipe_constraint_layout_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorAccent"
+                android:paddingLeft="@dimen/margin_medium"
+                android:paddingRight="@dimen/margin_medium"
+                app:layout_constraintTop_toBottomOf="@id/recipe_background_drop">
+
+                <include
+                    android:id="@+id/recipe_layout_like"
+                    layout="@layout/layout_like"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/recipe_title_serves"
+                    style="@style/TextRecipeMasterTitle"
+                    android:layout_marginTop="@dimen/margin_large"
+                    android:text="@string/recipe_block_serves"
+                    app:layout_constraintTop_toBottomOf="@id/recipe_layout_like" />
+
+                <FrameLayout
+                    android:id="@+id/recipe_fragment_container_serves"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_constraintTop_toBottomOf="@id/recipe_title_serves" />
+
+                <TextView
+                    android:id="@+id/recipe_title_ingredients"
+                    style="@style/TextRecipeMasterTitle"
+                    android:layout_marginTop="@dimen/margin_large"
+                    android:text="@string/recipe_block_ingredients"
+                    app:layout_constraintTop_toBottomOf="@id/recipe_fragment_container_serves" />
+
+                <FrameLayout
+                    android:id="@+id/recipe_fragment_container_ingredients"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_constraintTop_toBottomOf="@id/recipe_title_ingredients" />
+
+                <TextView
+                    android:id="@+id/recipe_title_steps"
+                    style="@style/TextRecipeMasterTitle"
+                    android:text="@string/recipe_block_steps"
+                    app:layout_constraintTop_toBottomOf="@id/recipe_fragment_container_ingredients" />
+
+                <FrameLayout
+                    android:id="@+id/recipe_fragment_container_steps"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_constraintTop_toBottomOf="@id/recipe_title_steps" />
+
+                <View
+                    android:id="@+id/recipe_filler_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/container_large"
+                    android:background="@color/colorAccent"
+                    app:layout_constraintTop_toBottomOf="@id/recipe_fragment_container_steps" />
+
+            </android.support.constraint.ConstraintLayout>
+        </android.support.constraint.ConstraintLayout>
+
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/recipe_button_view"
+        style="@style/TextButton"
+        android:text="@string/button_start_cooking"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

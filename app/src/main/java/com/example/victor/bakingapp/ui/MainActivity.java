@@ -25,9 +25,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
     public static final String INTENT_RECIPE_ID = "recipeId";
+    public static final String INTENT_RECIPE_NAME = "recipeName";
     public static final String INTENT_STEP_ITEMS = "stepItems";
 
-    MainListFragment recipeListFragment = new MainListFragment();
+    MainFragment recipeListFragment = new MainFragment();
     FragmentManager fragmentManager = getSupportFragmentManager();
 
     //Loader IDs

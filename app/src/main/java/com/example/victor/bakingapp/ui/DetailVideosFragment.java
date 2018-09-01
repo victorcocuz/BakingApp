@@ -1,9 +1,5 @@
 package com.example.victor.bakingapp.ui;
 
-import android.app.LoaderManager;
-import android.content.CursorLoader;
-import android.content.Loader;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,10 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.victor.bakingapp.R;
-import com.example.victor.bakingapp.data.BakingContract;
 import com.example.victor.bakingapp.objects.StepItem;
 
 import java.util.ArrayList;
@@ -24,18 +18,12 @@ import java.util.ArrayList;
 /******
  * Created by Victor on 8/27/2018.
  ******/
-public class RecipeVideosFragment extends Fragment {
+public class DetailVideosFragment extends Fragment {
 
-    private static final String LOG_TAG = RecipeVideosFragment.class.getSimpleName();
+    private static final String LOG_TAG = DetailVideosFragment.class.getSimpleName();
     View rootView;
     static int stepIndex;
     static ArrayList<StepItem> stepItems;
-
-    public interface RecipeOnClickListener {
-        public void onRecipeClicked(int position);
-    }
-
-    RecipeOnClickListener recipeOnClickListener;
 
     @Nullable
     @Override
@@ -53,31 +41,30 @@ public class RecipeVideosFragment extends Fragment {
 
         //Set video
         String video;
-        if (stepItem.getStepVideoUrl() != null) {
+        if (stepItem.getStepVideoUrl() != null && stepItem.getStepVideoUrl().length() > 0) {
             video = stepItem.getStepVideoUrl();
-        } else if (stepItem.getStepThumbnailUrl() != null) {
+        } else if (stepItem.getStepThumbnailUrl() != null && stepItem.getStepThumbnailUrl().length() > 0) {
             video = stepItem.getStepThumbnailUrl();
         } else {
             video = rootView.getResources().getString(R.string.no_visual_information_available);
         }
+        detailVideoView.setText(video);
 
         //Set description
         String description;
-        if (stepItem.getStepDescription() != null) {
+        if (stepItem.getStepDescription() != null && stepItem.getStepDescription().length() > 0) {
             description = stepItem.getStepDescription();
         } else {
             description = rootView.getResources().getString(R.string.no_description_available);
         }
-
-        detailVideoView.setText(video);
         detailDescriptionView.setText(description);
     }
 
     public void setStepIndex(int stepIndex) {
-        RecipeVideosFragment.stepIndex = stepIndex;
+        DetailVideosFragment.stepIndex = stepIndex;
     }
 
     public void setStepItems(ArrayList<StepItem> stepItems) {
-        RecipeVideosFragment.stepItems = stepItems;
+        DetailVideosFragment.stepItems = stepItems;
     }
 }

@@ -24,9 +24,9 @@ import java.util.Objects;
 /******
  * Created by Victor on 8/16/2018.
  ******/
-public class MainListFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+public class MainFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
-    private static final String LOG_TAG = MainListFragment.class.getSimpleName();
+    private static final String LOG_TAG = MainFragment.class.getSimpleName();
     private static RecipeAdapter recipeAdapter;
 
     @Nullable

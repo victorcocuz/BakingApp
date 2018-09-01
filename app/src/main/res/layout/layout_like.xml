@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/recipe_like_constraint_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/recipe_like_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/recipe_like_icon"
+            android:layout_width="@dimen/container_xsmall"
+            android:layout_height="@dimen/container_xsmall"
+            android:layout_marginBottom="@dimen/margin_small"
+            android:layout_marginEnd="@dimen/margin_medium"
+            android:layout_marginRight="@dimen/margin_medium"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:contentDescription="@string/icon_like"
+            android:src="@drawable/baseline_favorite_24px" />
+
+        <TextView
+            android:id="@+id/recipe_like_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:fontFamily="@font/comfortaa"
+            android:text="@string/fake_text_likes"
+            android:textSize="@dimen/text_body"
+            tools:targetApi="jelly_bean" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/recipe_like_line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/container_line"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:background="@color/colorText"
+        app:layout_constraintTop_toBottomOf="@id/recipe_like_linear_layout" />
+
+</android.support.constraint.ConstraintLayout>

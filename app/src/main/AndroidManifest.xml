@@ -34,7 +34,7 @@
             android:authorities="com.example.victor.bakingapp"
             android:exported="false" />
 
-        <activity android:name=".ui.RecipeDetailActivity"></activity>
+        <activity android:name=".ui.DetailActivity"></activity>
     </application>
 
 </manifest>
