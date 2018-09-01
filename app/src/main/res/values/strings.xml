@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">BakingApp</string>
+    <string name="recipe_image">Recipe Image</string>
+    <string name="background_gradient">Background Gradient</string>
+
+    <string name="list_nutella_pie">Nutella Pie</string>
+    <string name="list_brownies">Brownies</string>
+    <string name="list_cheese_cake">Cheese Cake</string>
+    <string name="list_yellow_cake">Yellow cake</string>
+
+    <string name="button_start_cooking">Start Cooking</string>
+    <string name="button_previous_step">Previous Step</string>
+    <string name="button_next_step">Next Step</string>
+    <string name="buton_icon_play">Play</string>
+
+    <string name="recipe_background_view">Background View</string>
+    <string name="recipe_block_serves">Serves</string>
+    <string name="recipe_block_ingredients">Ingredients</string>
+    <string name="recipe_block_steps">Steps</string>
+
+    <string name="icon_arrow">Arrow</string>
+    <string name="icon_like">Like</string>
+    <string name="icon_add">Add</string>
+    <string name="icon_remove">Remove</string>
+
+    <string name="fake_text_likes">150 Likes</string>
+    <string name="recipe_individual_step">Step</string>
+    <string name="no_visual_information_available">No Visual Information Available</string>
+    <string name="no_description_available">No Description Available</string>
+
+    <string name="toast_no_previous_step">There is no previous step</string>
+    <string name="toast_no_next_step">This is the final step</string>
+
+</resources>
