@@ -1,36 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/margin_small"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_marginBottom="@dimen/margin_small"
+    android:layout_marginLeft="@dimen/margin_medium"
+    android:layout_marginRight="@dimen/margin_medium"
+    android:layout_marginTop="@dimen/margin_small">
 
     <ImageView
-        android:contentDescription="@string/recipe_image"
         android:id="@+id/card_recipe_image_view"
         android:layout_width="match_parent"
         android:layout_height="@dimen/container_xlarge"
+        android:contentDescription="@string/recipe_image"
         android:scaleType="centerCrop"
-        tools:background="@color/colorAccent"/>
+        tools:background="@color/colorAccent" />
 
     <ImageView
-        android:contentDescription="@string/background_gradient"
         android:layout_width="match_parent"
         android:layout_height="@dimen/container_xlarge"
-        android:src="@drawable/backdrop_gradient"/>
+        android:contentDescription="@string/background_gradient"
+        android:src="@drawable/backdrop_gradient" />
 
     <TextView
         android:id="@+id/card_recipe_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:textSize="@dimen/text_title"
+        android:layout_marginBottom="@dimen/margin_xlarge"
+        android:layout_marginLeft="@dimen/margin_xlarge"
+        android:layout_marginStart="@dimen/margin_xlarge"
         android:textColor="@color/colorPrimary"
-        android:layout_marginBottom="@dimen/margin_xxlarge"
-        android:layout_marginLeft="@dimen/margin_xxlarge"
+        android:textSize="@dimen/text_title"
         app:fontFamily="@font/comfortaa_bold"
-        tools:text="@string/list_nutella_pie"
-        android:layout_marginStart="@dimen/margin_xxlarge" />
+        tools:text="@string/list_nutella_pie" />
 
 </android.support.v7.widget.CardView>

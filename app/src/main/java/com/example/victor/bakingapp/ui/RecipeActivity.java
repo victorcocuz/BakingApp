@@ -36,11 +36,14 @@ public class RecipeActivity extends AppCompatActivity implements
     ArrayList<StepItem> stepItems;
     private Context context;
     FragmentManager fragmentManager = getSupportFragmentManager();
+    private boolean twoPanes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe);
+
+        twoPanes = findViewById(R.id.recipe_general_tablet_layout) != null;
 
         context = getApplicationContext();
 
@@ -130,7 +133,6 @@ public class RecipeActivity extends AppCompatActivity implements
                 data.moveToFirst();
                 RecipeFragmentServes recipeFragmentServes = new RecipeFragmentServes();
                 recipeFragmentServes.setRecipeItem(data.getInt(data.getColumnIndex(RecipesEntry.RECIPES_SERVING)));
-                recipeFragmentServes.setArguments(getIntent().getExtras());
                 fragmentManager.beginTransaction()
                         .add(R.id.recipe_fragment_container_serves, recipeFragmentServes)
                         .commit();
@@ -138,41 +140,55 @@ public class RecipeActivity extends AppCompatActivity implements
             case MainActivity.CURSOR_INGREDIENTS_LIST_LOADER_ID:
                 RecipeFragmentIngredients recipeFragmentIngredients = new RecipeFragmentIngredients();
                 recipeFragmentIngredients.setIngredientItems(data);
-                recipeFragmentIngredients.setArguments(getIntent().getExtras());
                 fragmentManager.beginTransaction()
                         .add(R.id.recipe_fragment_container_ingredients, recipeFragmentIngredients)
                         .commit();
                 break;
             case MainActivity.CURSOR_STEPS_LIST_LOADER_ID:
+
+                //Create stepItems ArrayList to pass for DetailVideosFragment
+                TextView buttonView = findViewById(R.id.recipe_button_view);
+                stepItems = new ArrayList<>();
+                for (int i = 0; i < data.getCount(); i++) {
+                    data.moveToPosition(i);
+                    int stepId = data.getInt(data.getColumnIndex(StepsEntry.STEPS_ID));
+                    String stepShortDescription = data.getString(data.getColumnIndex(StepsEntry.STEPS_SHORT_DESCRIPTION));
+                    String stepDescription = data.getString(data.getColumnIndex(StepsEntry.STEPS_DESCRIPTION));
+                    String stepVideoUrl = data.getString(data.getColumnIndex(StepsEntry.STEPS_VIDEO_URL));
+                    String stepThumbnailUrl = data.getString(data.getColumnIndex(StepsEntry.STEPS_THUMBNAIL_URL));
+                    stepItems.add(new StepItem(stepId, stepShortDescription, stepDescription, stepVideoUrl, stepThumbnailUrl));
+                }
+
+                //Set RecipeFragmentSteps
+                buttonView.setVisibility(View.VISIBLE);
                 RecipeFragmentSteps recipeFragmentSteps = new RecipeFragmentSteps();
-                recipeFragmentSteps.setStepItems(data);
-                recipeFragmentSteps.setArguments(getIntent().getExtras());
+                recipeFragmentSteps.setStepItems(stepItems);
+                recipeFragmentSteps.setTwoPanes(twoPanes);
                 fragmentManager.beginTransaction()
                         .add(R.id.recipe_fragment_container_steps, recipeFragmentSteps)
                         .commit();
 
-                //Create the onClickListener and pass the stepItems parcelable into DetailActivity through intent
-                TextView buttonView = findViewById(R.id.recipe_button_view);
-                buttonView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        stepItems = new ArrayList<>();
-                        for (int i = 0; i < data.getCount(); i++) {
-                            data.moveToPosition(i);
-                            int stepId = data.getInt(data.getColumnIndex(StepsEntry.STEPS_ID));
-                            String stepShortDescription = data.getString(data.getColumnIndex(StepsEntry.STEPS_SHORT_DESCRIPTION));
-                            String stepDescription = data.getString(data.getColumnIndex(StepsEntry.STEPS_DESCRIPTION));
-                            String stepVideoUrl = data.getString(data.getColumnIndex(StepsEntry.STEPS_VIDEO_URL));
-                            String stepThumbnailUrl = data.getString(data.getColumnIndex(StepsEntry.STEPS_THUMBNAIL_URL));
-                            stepItems.add(new StepItem(stepId, stepShortDescription, stepDescription, stepVideoUrl, stepThumbnailUrl));
+                //Set DetailActivity for onePane and set DetailVideoActivity for twoPanes
+                if (!twoPanes) {
+                    buttonView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent goToRecipeCookingActivity = new Intent(RecipeActivity.this, DetailActivity.class);
+                            goToRecipeCookingActivity.putExtra(MainActivity.INTENT_RECIPE_ID, recipeId);
+                            goToRecipeCookingActivity.putParcelableArrayListExtra(MainActivity.INTENT_STEP_ITEMS, stepItems);
+                            startActivity(goToRecipeCookingActivity);
                         }
-
-                        Intent goToRecipeCookingActivity = new Intent(RecipeActivity.this, DetailActivity.class);
-                        goToRecipeCookingActivity.putExtra(MainActivity.INTENT_RECIPE_ID, recipeId);
-                        goToRecipeCookingActivity.putParcelableArrayListExtra(MainActivity.INTENT_STEP_ITEMS, stepItems);
-                        startActivity(goToRecipeCookingActivity);
-                    }
-                });
+                    });
+                }
+                if (twoPanes) {
+                    buttonView.setVisibility(View.GONE);
+                    DetailVideosFragment newRecipeVideosFragment = new DetailVideosFragment();
+                    newRecipeVideosFragment.setStepIndex(0);
+                    newRecipeVideosFragment.setStepItems(stepItems);
+                    fragmentManager.beginTransaction()
+                            .add(R.id.fragment_video_container_test, newRecipeVideosFragment)
+                            .commit();
+                }
                 break;
         }
     }

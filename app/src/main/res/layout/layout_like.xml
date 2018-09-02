@@ -22,7 +22,7 @@
             android:layout_marginRight="@dimen/margin_medium"
             android:layout_marginTop="@dimen/margin_medium"
             android:contentDescription="@string/icon_like"
-            android:src="@drawable/baseline_favorite_24px" />
+            android:src="@drawable/baseline_favorite" />
 
         <TextView
             android:id="@+id/recipe_like_text"
