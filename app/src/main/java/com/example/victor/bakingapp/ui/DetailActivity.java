@@ -17,9 +17,9 @@ import java.util.ArrayList;
 public class DetailActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = DetailActivity.class.getSimpleName();
-    static int stepIndex = 0;
-    ArrayList<StepItem> stepItems = new ArrayList<>();
-    FragmentManager fragmentManager = getSupportFragmentManager();
+    private static int stepIndex = 0;
+    private final FragmentManager fragmentManager = getSupportFragmentManager();
+    private ArrayList<StepItem> stepItems = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +77,7 @@ public class DetailActivity extends AppCompatActivity {
         });
     }
 
-    public static void replaceStepItem(int stepIndex, ArrayList<StepItem> stepItems, FragmentManager fragmentManager) {
+    private static void replaceStepItem(int stepIndex, ArrayList<StepItem> stepItems, FragmentManager fragmentManager) {
         DetailVideosFragment newRecipeVideosFragment = new DetailVideosFragment();
         newRecipeVideosFragment.setStepIndex(stepIndex);
         newRecipeVideosFragment.setStepItems(stepItems);

@@ -25,6 +25,7 @@ import com.example.victor.bakingapp.data.BakingContract.RecipesEntry;
  * Created by Victor on 8/27/2018.
  ******/
 public class RecipeFragmentServes extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+    @SuppressWarnings("unused")
     private static final String LOG_TAG = RecipeFragmentServes.class.getSimpleName();
 
     //Saved Instance
@@ -32,7 +33,7 @@ public class RecipeFragmentServes extends Fragment implements LoaderManager.Load
     private static final String ON_SAVED_INSTANCE_SERVES_UPDATED = "servesUpdatedBoolean";
     private static final String ON_SAVED_INSTANCE_RECIPE_ID = "recipeId";
     private int recipeServings;
-    TextView recipeServeView;
+    private TextView recipeServeView;
     private int recipeId;
     //Ingredients calculation and update
     private int recipeInitialServings;
@@ -124,7 +125,7 @@ public class RecipeFragmentServes extends Fragment implements LoaderManager.Load
     public void onLoaderReset(@NonNull android.support.v4.content.Loader<Cursor> loader) {
     }
 
-    public void adjustServings(int recipeServings) {
+    private void adjustServings(int recipeServings) {
         ContentValues contentValuesRecipe = new ContentValues();
         contentValuesRecipe.put(RecipesEntry.RECIPES_SERVING, recipeServings);
         String selectionRecipe = RecipesEntry.RECIPES_ID + " =? ";
@@ -142,7 +143,7 @@ public class RecipeFragmentServes extends Fragment implements LoaderManager.Load
         getLoaderManager().initLoader(MainActivity.CURSOR_INGREDIENTS_LIST_LOADER_ID, null, RecipeFragmentServes.this);
     }
 
-    public void updateIngredientQuantities(Cursor data) {
+    private void updateIngredientQuantities(Cursor data) {
         for (int i = 0; i < data.getCount(); i++) {
             data.moveToPosition(i);
             float initialQuantity;

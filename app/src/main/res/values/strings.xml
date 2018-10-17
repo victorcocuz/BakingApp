@@ -13,7 +13,6 @@
     <string name="button_start_cooking">Start Cooking</string>
     <string name="button_previous_step">Previous Step</string>
     <string name="button_next_step">Next Step</string>
-    <string name="buton_icon_play">Play</string>
 
     <string name="recipe_background_view">Background View</string>
     <string name="recipe_block_serves">Serves</string>
@@ -35,9 +34,7 @@
     <string name="toast_minimum_servings">Ingredients are for at least one person</string>
     <string name="toast_maximum_servings">Ingredients are for maximum 12 people</string>
 
-
-    //Widget
+    <!--Widget-->
     <string name="line">Line</string>
-    <string name="add_widget">Add widget</string>
     <string name="back_to_recipes">Back to Recipes</string>
 </resources>

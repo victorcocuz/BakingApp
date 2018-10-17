@@ -39,11 +39,10 @@ public class MainActivity extends AppCompatActivity implements
             RecipesEntry.RECIPES_SERVING,
             RecipesEntry.RECIPES_IMAGE};
 
-    MainFragment recipeListFragment = new MainFragment();
-    FragmentManager fragmentManager = getSupportFragmentManager();
-
     //Loader IDs
-    public static final int MAIN_LIST_LOADER_ID = 1000;
+    private static final int MAIN_LIST_LOADER_ID = 1000;
+    private final MainFragment recipeListFragment = new MainFragment();
+    private final FragmentManager fragmentManager = getSupportFragmentManager();
     public static final int CURSOR_RECIPE_LOADER_ID = 2000;
     public static final int CURSOR_INGREDIENTS_LIST_LOADER_ID = 3000;
     public static final int CURSOR_STEPS_LIST_LOADER_ID = 4000;
@@ -115,6 +114,7 @@ public class MainActivity extends AppCompatActivity implements
                 }
                 break;
             case MAIN_LIST_LOADER_ID:
+                //noinspection unchecked
                 List<RecipeItem> recipeItems = (List<RecipeItem>) data;
                 initialize(recipeItems);
                 fragmentManager.beginTransaction()
@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
-    public void initialize(List<RecipeItem> data) {
+    private void initialize(List<RecipeItem> data) {
         for (int i = 0; i < data.size(); i++) {
             RecipeItem recipe = data.get(i);
             int id = recipe.getRecipeId();

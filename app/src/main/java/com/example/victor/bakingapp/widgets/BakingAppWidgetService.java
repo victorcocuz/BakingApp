@@ -18,7 +18,6 @@ public class BakingAppWidgetService extends IntentService {
     public static final String ACTION_UPDATE_RECIPE_STEPS = "com.example.victor.bakingapp.action.update_recipe_steps";
     public static final String EXTRA_IS_RECIPE = "BakingAppWidgetIsRecipe";
     public static final String EXTRA_RECIPE_ID = "BakingAppWidgetServiceId";
-    private static final String LOG_TAG = BakingAppWidgetService.class.getSimpleName();
 
     public BakingAppWidgetService() {
         super("BakingAppWidgetService");

@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorAccent"
     android:orientation="vertical">
 
     <FrameLayout
@@ -31,6 +30,7 @@
         android:id="@+id/fragment_recipe_detail_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="@dimen/text_subheader"
         android:layout_margin="@dimen/margin_medium"
         app:layout_constraintTop_toBottomOf="@id/fragment_recipe_detail_video_frame" />
 

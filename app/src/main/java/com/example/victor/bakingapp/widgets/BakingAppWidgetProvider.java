@@ -16,9 +16,7 @@ import com.example.victor.bakingapp.ui.DetailActivity;
  */
 public class BakingAppWidgetProvider extends AppWidgetProvider {
 
-    private static final String LOG_TAG = BakingAppWidgetProvider.class.getSimpleName();
-
-    static void updateAppWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId, boolean isRecipe, int recipeId) {
+    private static void updateAppWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId, boolean isRecipe, int recipeId) {
         RemoteViews remoteViews;
         if (isRecipe) {
             remoteViews = getRecipesRemoteView(context);

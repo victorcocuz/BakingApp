@@ -21,15 +21,13 @@ import java.util.ArrayList;
  * Created by Victor on 8/27/2018.
  ******/
 public class RecipeFragmentSteps extends Fragment implements StepAdapter.OnStepClickListener {
+    @SuppressWarnings("unused")
     private static final String LOG_TAG = RecipeFragmentSteps.class.getSimpleName();
     private static final String ON_SAVED_INSTANCE_TWO_PANES = "savedStateTwoPanes";
     private static final String ON_SAVED_INSTANCE_STEP_ITEMS = "savedStateStepItems";
     private Bundle mSavedInstanceState;
-    private static final int STEPS_ID = 2000;
     private ArrayList<StepItem> stepItems;
     private boolean twoPanes;
-    RecyclerView recyclerView;
-    StepAdapter stepAdapter;
 
     @Nullable
     @Override
@@ -42,12 +40,12 @@ public class RecipeFragmentSteps extends Fragment implements StepAdapter.OnStepC
             stepItems = savedInstanceState.getParcelableArrayList(ON_SAVED_INSTANCE_TWO_PANES);
         }
 
-        recyclerView = rootView.findViewById(R.id.recipe_steps_recycler_view);
+        RecyclerView recyclerView = rootView.findViewById(R.id.recipe_steps_recycler_view);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
         recyclerView.setNestedScrollingEnabled(false);
-        stepAdapter = new StepAdapter(getContext(), stepItems, this, twoPanes);
+        StepAdapter stepAdapter = new StepAdapter(getContext(), stepItems, this, twoPanes);
         recyclerView.setAdapter(stepAdapter);
         return rootView;
     }

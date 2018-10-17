@@ -17,11 +17,12 @@ import java.util.ArrayList;
  * Created by Victor on 9/2/2018.
  ******/
 public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepViewHolder> {
+    @SuppressWarnings("unused")
     private static final String LOG_TAG = RecipeAdapter.class.getSimpleName();
-    private ArrayList<StepItem> stepItems;
-    private Context context;
-    private OnStepClickListener onStepClickHandler;
-    private boolean twoPanes;
+    private final ArrayList<StepItem> stepItems;
+    private final Context context;
+    private final OnStepClickListener onStepClickHandler;
+    private final boolean twoPanes;
 
     public StepAdapter(Context context, ArrayList<StepItem> stepItems, OnStepClickListener onStepClickHandler, boolean twoPanes) {
         this.context = context;
@@ -63,10 +64,10 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepViewHolder
     }
 
     public class StepViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private TextView stepsTitleView;
-        private TextView stepsNumberView;
-        private TextView stepsShortDescriptionView;
-        private TextView stepsDescriptionView;
+        private final TextView stepsTitleView;
+        private final TextView stepsNumberView;
+        private final TextView stepsShortDescriptionView;
+        private final TextView stepsDescriptionView;
 
         StepViewHolder(View itemView) {
             super(itemView);

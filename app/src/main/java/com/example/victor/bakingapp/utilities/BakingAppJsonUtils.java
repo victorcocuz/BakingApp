@@ -50,8 +50,7 @@ public class BakingAppJsonUtils {
 
     public static URL getURL(String stringUrl) {
         try {
-            URL url = new URL(stringUrl);
-            return url;
+            return new URL(stringUrl);
         } catch (MalformedURLException e) {
             Log.e(LOG_TAG, "Cannot create url from string", e);
         }
@@ -90,7 +89,7 @@ public class BakingAppJsonUtils {
         return jsonResponse;
     }
 
-    public static String readFromStream(InputStream inputStream) throws IOException {
+    private static String readFromStream(InputStream inputStream) throws IOException {
         StringBuilder output = new StringBuilder();
 
         if (inputStream != null) {

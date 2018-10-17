@@ -19,6 +19,7 @@ import java.util.ArrayList;
  ******/
 public class ListWidgetServiceRecipes extends RemoteViewsService {
 
+    @SuppressWarnings("unused")
     private static final String LOG_TAG = ListWidgetServiceRecipes.class.getSimpleName();
 
     @Override
@@ -32,12 +33,12 @@ public class ListWidgetServiceRecipes extends RemoteViewsService {
     }
 
     class ListRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
-        Context context;
+        final Context context;
         Cursor cursor;
-        boolean isRecipe;
-        int recipeId;
+        final boolean isRecipe;
+        final int recipeId;
 
-        public ListRemoteViewsFactory(Context context, boolean isRecipe, int recipeId) {
+        ListRemoteViewsFactory(Context context, boolean isRecipe, int recipeId) {
             this.context = context;
             this.isRecipe = isRecipe;
             this.recipeId = recipeId;

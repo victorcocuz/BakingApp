@@ -54,8 +54,7 @@
                 android:textSize="@dimen/text_headline"
                 app:layout_constraintBottom_toBottomOf="@id/recipe_background_drop"
                 app:layout_constraintLeft_toLeftOf="parent"
-                tools:targetApi="jelly_bean"
-                tools:text="@string/list_nutella_pie" />
+                tools:targetApi="jelly_bean" />
 
             <ImageView
                 android:id="@+id/recipe_arrow"

@@ -22,11 +22,11 @@ public class RecipeItem implements Parcelable {
         }
     };
 
-    private int recipeId;
-    private String recipeName;
-    private List<IngredientItem> recipeIngredientItems;
-    private List<StepItem> recipeStepItems;
-    private String recipeServing;
+    private final int recipeId;
+    private final String recipeName;
+    private final List<IngredientItem> recipeIngredientItems;
+    private final List<StepItem> recipeStepItems;
+    private final String recipeServing;
 
     public RecipeItem(int recipeId, String recipeName, List<IngredientItem> recipeIngredientItems, List<StepItem> recipeStepItems, String recipeServing) {
         this.recipeId = recipeId;
@@ -47,7 +47,7 @@ public class RecipeItem implements Parcelable {
     public String getRecipeServing() { return recipeServing; }
 
     @SuppressWarnings("unchecked")
-    public RecipeItem(Parcel in) {
+    private RecipeItem(Parcel in) {
         recipeId = in.readInt();
         recipeName = in.readString();
         recipeIngredientItems = in.readArrayList(IngredientItem.class.getClassLoader());

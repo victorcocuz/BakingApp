@@ -20,11 +20,11 @@ public class StepItem implements Parcelable {
         }
     };
 
-    private int stepId;
-    private String stepShortDescription;
-    private String stepDescription;
-    private String stepVideoUrl;
-    private String stepThumbnailUrl;
+    private final int stepId;
+    private final String stepShortDescription;
+    private final String stepDescription;
+    private final String stepVideoUrl;
+    private final String stepThumbnailUrl;
 
     public StepItem(int stepId, String stepShortDescription, String stepDescription, String stepVideoURL, String stepThumbnailUrl) {
         this.stepId = stepId;
@@ -34,9 +34,6 @@ public class StepItem implements Parcelable {
         this.stepThumbnailUrl = stepThumbnailUrl;
     }
 
-    public int getStepId() {
-        return stepId;
-    }
     public String getStepShortDescription() { return stepShortDescription; }
     public String getStepDescription() {
         return stepDescription;

@@ -13,7 +13,6 @@ import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
 //EspressoImports
@@ -29,7 +28,7 @@ public class RecipeActivityFragmentTest {
     private static final int RECIPE_ID = 1;
 
     @Rule
-    public ActivityTestRule<RecipeActivity> recipeActivityActivityTestRule = new ActivityTestRule<>(RecipeActivity.class, true, false);
+    public final ActivityTestRule<RecipeActivity> recipeActivityActivityTestRule = new ActivityTestRule<>(RecipeActivity.class, true, false);
 
     @Test
     public void CheckRecipeName() {

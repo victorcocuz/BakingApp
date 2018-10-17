@@ -22,9 +22,10 @@ import com.squareup.picasso.Picasso;
  ******/
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder> {
 
+    @SuppressWarnings("unused")
     private static final String LOG_TAG = RecipeAdapter.class.getSimpleName();
     private Cursor recipesCursor;
-    private Context context;
+    private final Context context;
 
     public RecipeAdapter(Context context) {
         this.context = context;
@@ -70,10 +71,10 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     }
 
     public class RecipeViewHolder extends RecyclerView.ViewHolder {
-        private ImageView recipeImageView;
-        private TextView recipeTextView;
+        private final ImageView recipeImageView;
+        private final TextView recipeTextView;
 
-        public RecipeViewHolder(View itemView) {
+        RecipeViewHolder(View itemView) {
             super(itemView);
             recipeImageView = itemView.findViewById(R.id.card_recipe_image_view);
             recipeTextView = itemView.findViewById(R.id.card_recipe_text_view);

@@ -33,13 +33,13 @@ public class RecipeActivity extends AppCompatActivity implements
     private static final String ON_SAVED_INSTANCE_RECIPE_NAME = "onSavedInstanceRecipeName";
     private static final String ON_SAVED_INSTANCE_RECIPE_ID = "onSavedInstanceRecipeId";
     private static final String ON_SAVED_INSTANCE_RECIPE_IMAGE_URL = "onSavedInstanceRecipeImageUrl";
-    static String recipeImageUrl = null;
-    static int recipeId = 0;
-    static String recipeName = null;
+    private static String recipeImageUrl = null;
+    private static int recipeId = 0;
+    private static String recipeName = null;
     private Bundle mSavedInstanceState;
-    ArrayList<StepItem> stepItems;
+    private final FragmentManager fragmentManager = getSupportFragmentManager();
     private Context context;
-    FragmentManager fragmentManager = getSupportFragmentManager();
+    private ArrayList<StepItem> stepItems;
     private boolean twoPanes;
 
     @Override
@@ -67,8 +67,7 @@ public class RecipeActivity extends AppCompatActivity implements
             if (statusBarResourceId > 0) {
                 statusBarHeight = getResources().getDimensionPixelSize(statusBarResourceId);
             }
-            int totalHeight = height - actionBarHeight - statusBarHeight - Math.round(getResources().getDimension(R.dimen.container_regular_medium) + 100);
-            backdropView.getLayoutParams().height = totalHeight;
+            backdropView.getLayoutParams().height = height - actionBarHeight - statusBarHeight - Math.round(getResources().getDimension(R.dimen.container_regular_medium) + 100);
         }
 
         //Set recipe image and text

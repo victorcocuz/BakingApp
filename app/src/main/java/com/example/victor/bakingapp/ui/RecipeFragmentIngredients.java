@@ -22,9 +22,9 @@ import java.util.ArrayList;
  * Created by Victor on 8/27/2018.
  ******/
 public class RecipeFragmentIngredients extends Fragment {
+    @SuppressWarnings("unused")
     private static final String LOG_TAG = RecipeFragmentServes.class.getSimpleName();
     private static final String ON_SAVED_INSTANCE_INGREDIENT_ITEMS = "ingredientItems";
-    private Bundle mSavedInstanceState;
     private static final int INGREDIENTS_ID = 1000;
     private Cursor ingredientItems;
     private ArrayList<IngredientItem> ingredientItemsForSavedState = new ArrayList<>();
@@ -34,7 +34,6 @@ public class RecipeFragmentIngredients extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_recipe_ingredients, container, false);
-        mSavedInstanceState = savedInstanceState;
 
         if (savedInstanceState != null) {
             ingredientItemsForSavedState = savedInstanceState.getParcelableArrayList(ON_SAVED_INSTANCE_INGREDIENT_ITEMS);

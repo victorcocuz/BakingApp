@@ -26,8 +26,9 @@ import java.util.Objects;
  ******/
 public class MainFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
+    @SuppressWarnings("unused")
     private static final String LOG_TAG = MainFragment.class.getSimpleName();
-    private static RecipeAdapter recipeAdapter;
+    private RecipeAdapter recipeAdapter;
 
     @Nullable
     @Override

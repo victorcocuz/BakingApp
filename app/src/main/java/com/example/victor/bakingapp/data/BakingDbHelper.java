@@ -11,7 +11,7 @@ import com.example.victor.bakingapp.data.BakingContract.StepsEntry;
 /******
  * Created by Victor on 8/21/2018.
  ******/
-public class BakingDbHelper extends SQLiteOpenHelper {
+class BakingDbHelper extends SQLiteOpenHelper {
 
     private static final String BAKING_DB_NAME = "baking.db";
     private static final int BAKING_DB_VERSION = 1;

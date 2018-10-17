@@ -20,9 +20,9 @@ public class IngredientItem implements Parcelable {
         }
     };
 
-    private String ingredientQuantity;
-    private String ingredientMeasure;
-    private String ingredientIngredient;
+    private final String ingredientQuantity;
+    private final String ingredientMeasure;
+    private final String ingredientIngredient;
 
     public IngredientItem(String ingredientQuantity, String ingredientMeasure, String ingredientIngredient) {
         this.ingredientQuantity = ingredientQuantity;
@@ -40,7 +40,7 @@ public class IngredientItem implements Parcelable {
         return ingredientIngredient;
     }
 
-    protected IngredientItem(Parcel in) {
+    IngredientItem(Parcel in) {
         ingredientQuantity = in.readString();
         ingredientMeasure = in.readString();
         ingredientIngredient = in.readString();

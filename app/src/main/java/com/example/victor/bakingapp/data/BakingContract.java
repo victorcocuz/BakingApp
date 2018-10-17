@@ -9,9 +9,9 @@ import android.provider.BaseColumns;
  ******/
 public class BakingContract {
 
-    public static final String BAKING_SCHEME = "content://";
+    private static final String BAKING_SCHEME = "content://";
     public static final String BAKING_AUTHORITY = "com.example.victor.bakingapp";
-    public static final Uri BAKING_BASE_URI = Uri.parse(BAKING_SCHEME + BAKING_AUTHORITY);
+    private static final Uri BAKING_BASE_URI = Uri.parse(BAKING_SCHEME + BAKING_AUTHORITY);
 
     public static final String BAKING_PATH_RECIPES = "recipes";
     public static final String BAKING_PATH_INGREDIENTS = "ingredients";

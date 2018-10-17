@@ -34,6 +34,7 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /******
  * Created by Victor on 8/27/2018.
@@ -42,9 +43,9 @@ public class DetailVideosFragment extends Fragment
         implements ExoPlayer.EventListener {
 
     private static final String LOG_TAG = DetailVideosFragment.class.getSimpleName();
-    View rootView;
-    static int stepIndex;
-    static ArrayList<StepItem> stepItems;
+    private static int stepIndex;
+    private static ArrayList<StepItem> stepItems;
+    private View rootView;
 
     private static final String SAVED_STATE_EXOPLAYER_POSITION = "savedStateExoplayerPosition";
     private static MediaSessionCompat bakingAppMediaSession;
@@ -93,7 +94,7 @@ public class DetailVideosFragment extends Fragment
         bakingAppMediaSession.setActive(true);
     }
 
-    public void populateDetailFragment(ArrayList<StepItem> stepItems, int stepIndex) {
+    private void populateDetailFragment(ArrayList<StepItem> stepItems, int stepIndex) {
         TextView detailVideoView = rootView.findViewById(R.id.fragment_recipe_detail_videos);
         TextView detailDescriptionView = rootView.findViewById(R.id.fragment_recipe_detail_description);
 
@@ -144,8 +145,11 @@ public class DetailVideosFragment extends Fragment
             bakingAppExoPlayer.seekTo(exoplayerPosition);
             //Prepare the MediaSource
             String userAgent = Util.getUserAgent(getContext(), "BakingApp");
-            MediaSource mediaSource = new ExtractorMediaSource(mediaUri, new DefaultDataSourceFactory(getContext(), userAgent),
-                    new DefaultExtractorsFactory(), null, null);
+            MediaSource mediaSource = null;
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+                mediaSource = new ExtractorMediaSource(mediaUri, new DefaultDataSourceFactory(Objects.requireNonNull(getContext()), userAgent),
+                        new DefaultExtractorsFactory(), null, null);
+            }
             bakingAppExoPlayer.prepare(mediaSource);
             bakingAppExoPlayer.setPlayWhenReady(true);
         }
@@ -192,11 +196,6 @@ public class DetailVideosFragment extends Fragment
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @Override
     public void onDestroy() {
         super.onDestroy();
         if (bakingAppExoPlayer != null) {
@@ -207,12 +206,10 @@ public class DetailVideosFragment extends Fragment
     // Exoplayer Event Listener Methods
     @Override
     public void onTimelineChanged(Timeline timeline, Object manifest) {
-
     }
 
     @Override
     public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {
-
     }
 
     @Override
