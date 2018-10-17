@@ -7,9 +7,9 @@ import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -18,12 +18,11 @@ import android.widget.TextView;
 
 import com.example.victor.bakingapp.R;
 import com.example.victor.bakingapp.data.BakingContract;
-import com.example.victor.bakingapp.objects.StepItem;
-
-import com.example.victor.bakingapp.data.BakingContract.RecipesEntry;
 import com.example.victor.bakingapp.data.BakingContract.IngredientsEntry;
+import com.example.victor.bakingapp.data.BakingContract.RecipesEntry;
 import com.example.victor.bakingapp.data.BakingContract.StepsEntry;
-import com.example.victor.bakingapp.resources.Assets;
+import com.example.victor.bakingapp.objects.StepItem;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -31,8 +30,13 @@ public class RecipeActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final String LOG_TAG = RecipeActivity.class.getSimpleName();
+    private static final String ON_SAVED_INSTANCE_RECIPE_NAME = "onSavedInstanceRecipeName";
+    private static final String ON_SAVED_INSTANCE_RECIPE_ID = "onSavedInstanceRecipeId";
+    private static final String ON_SAVED_INSTANCE_RECIPE_IMAGE_URL = "onSavedInstanceRecipeImageUrl";
+    static String recipeImageUrl = null;
     static int recipeId = 0;
     static String recipeName = null;
+    private Bundle mSavedInstanceState;
     ArrayList<StepItem> stepItems;
     private Context context;
     FragmentManager fragmentManager = getSupportFragmentManager();
@@ -43,8 +47,8 @@ public class RecipeActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe);
 
+        mSavedInstanceState = savedInstanceState;
         twoPanes = findViewById(R.id.recipe_general_tablet_layout) != null;
-
         context = getApplicationContext();
 
         //Set background drop height
@@ -63,25 +67,30 @@ public class RecipeActivity extends AppCompatActivity implements
             if (statusBarResourceId > 0) {
                 statusBarHeight = getResources().getDimensionPixelSize(statusBarResourceId);
             }
-            int totalHeight = height - actionBarHeight - statusBarHeight - Math.round(getResources().getDimension(R.dimen.container_regular_large)) - 100;
+            int totalHeight = height - actionBarHeight - statusBarHeight - Math.round(getResources().getDimension(R.dimen.container_regular_medium) + 100);
             backdropView.getLayoutParams().height = totalHeight;
         }
 
         //Set recipe image and text
         Bundle bundle;
-        if (getIntent().getExtras() != null) {
-            bundle = getIntent().getExtras();
-
-            recipeId = bundle.getInt(MainActivity.INTENT_RECIPE_ID);
-            recipeName = bundle.getString(MainActivity.INTENT_RECIPE_NAME);
-
-            ImageView recipeImageView = findViewById(R.id.recipe_background_view);
-            recipeImageView.setImageResource(Assets.getCakeImages().get(recipeId - 1));
-            TextView recipeNameView = findViewById(R.id.recipe_title);
-            recipeNameView.setText(recipeName);
+        if (savedInstanceState != null) {
+            recipeName = savedInstanceState.getString(ON_SAVED_INSTANCE_RECIPE_NAME);
+            recipeId = savedInstanceState.getInt(ON_SAVED_INSTANCE_RECIPE_ID);
+            recipeImageUrl = savedInstanceState.getString(ON_SAVED_INSTANCE_RECIPE_IMAGE_URL);
         } else {
-            Log.e(LOG_TAG, "no extras received from the intent");
+            if (getIntent().getExtras() != null) {
+                bundle = getIntent().getExtras();
+                recipeId = bundle.getInt(MainActivity.INTENT_RECIPE_ID);
+                recipeName = bundle.getString(MainActivity.INTENT_RECIPE_NAME);
+                recipeImageUrl = bundle.getString(MainActivity.INTENT_RECIPE_IMAGE_URL);
+            } else {
+                Log.e(LOG_TAG, "no extras received from the intent");
+            }
         }
+        ImageView recipeImageView = findViewById(R.id.recipe_background_view);
+        Picasso.get().load(recipeImageUrl).into(recipeImageView);
+        TextView recipeNameView = findViewById(R.id.recipe_title);
+        recipeNameView.setText(recipeName);
 
         //Initialize loaders to get cursor data
         getLoaderManager().initLoader(MainActivity.CURSOR_RECIPE_LOADER_ID, null, RecipeActivity.this);
@@ -105,7 +114,7 @@ public class RecipeActivity extends AppCompatActivity implements
                         selectionArgs,
                         null);
             case MainActivity.CURSOR_INGREDIENTS_LIST_LOADER_ID:
-                selection = IngredientsEntry.INGREDIENTS_ID + "=?";
+                selection = IngredientsEntry.INGREDIENTS_RECIPE_ID + "=?";
                 selectionArgs = new String[]{String.valueOf(recipeId)};
                 return new CursorLoader(context,
                         BakingContract.IngredientsEntry.INGREDIENTS_URI,
@@ -114,7 +123,7 @@ public class RecipeActivity extends AppCompatActivity implements
                         selectionArgs,
                         null);
             case MainActivity.CURSOR_STEPS_LIST_LOADER_ID:
-                selection = StepsEntry.STEPS_ID + "=?";
+                selection = StepsEntry.STEPS_RECIPE_ID + "=?";
                 selectionArgs = new String[]{String.valueOf(recipeId)};
                 return new CursorLoader(context,
                         BakingContract.StepsEntry.STEPS_URI,
@@ -131,27 +140,40 @@ public class RecipeActivity extends AppCompatActivity implements
         switch (loader.getId()) {
             case MainActivity.CURSOR_RECIPE_LOADER_ID:
                 data.moveToFirst();
-                RecipeFragmentServes recipeFragmentServes = new RecipeFragmentServes();
-                recipeFragmentServes.setRecipeItem(data.getInt(data.getColumnIndex(RecipesEntry.RECIPES_SERVING)));
-                fragmentManager.beginTransaction()
-                        .add(R.id.recipe_fragment_container_serves, recipeFragmentServes)
-                        .commit();
+                //Create recipeFragmentServes if there is no SavedInstanceState else replace
+                if (mSavedInstanceState == null) {
+                    RecipeFragmentServes recipeFragmentServes = new RecipeFragmentServes();
+                    recipeFragmentServes.setRecipeItem(data.getInt(data.getColumnIndex(RecipesEntry.RECIPES_SERVING)));
+                    recipeFragmentServes.setRecipeId(data.getInt(data.getColumnIndex(RecipesEntry.RECIPES_ID)));
+                    fragmentManager.beginTransaction()
+                            .add(R.id.recipe_fragment_container_serves, recipeFragmentServes)
+                            .commit();
+                }
                 break;
             case MainActivity.CURSOR_INGREDIENTS_LIST_LOADER_ID:
-                RecipeFragmentIngredients recipeFragmentIngredients = new RecipeFragmentIngredients();
-                recipeFragmentIngredients.setIngredientItems(data);
-                fragmentManager.beginTransaction()
-                        .add(R.id.recipe_fragment_container_ingredients, recipeFragmentIngredients)
-                        .commit();
+                //Create recipeFragmentIngredients if there is no SavedInstanceState else replace
+                if (mSavedInstanceState == null) {
+                    RecipeFragmentIngredients recipeFragmentIngredients = new RecipeFragmentIngredients();
+                    recipeFragmentIngredients.setIngredientItems(data);
+                    fragmentManager.beginTransaction()
+                            .add(R.id.recipe_fragment_container_ingredients, recipeFragmentIngredients)
+                            .commit();
+                } else {
+                    RecipeFragmentIngredients recipeFragmentIngredients = new RecipeFragmentIngredients();
+                    recipeFragmentIngredients.setIngredientItems(data);
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.recipe_fragment_container_ingredients, recipeFragmentIngredients)
+                            .commit();
+                }
                 break;
             case MainActivity.CURSOR_STEPS_LIST_LOADER_ID:
-
                 //Create stepItems ArrayList to pass for DetailVideosFragment
                 TextView buttonView = findViewById(R.id.recipe_button_view);
+                View fillerView = findViewById(R.id.recipe_container_filler);
                 stepItems = new ArrayList<>();
                 for (int i = 0; i < data.getCount(); i++) {
                     data.moveToPosition(i);
-                    int stepId = data.getInt(data.getColumnIndex(StepsEntry.STEPS_ID));
+                    int stepId = data.getInt(data.getColumnIndex(StepsEntry.STEPS_RECIPE_ID));
                     String stepShortDescription = data.getString(data.getColumnIndex(StepsEntry.STEPS_SHORT_DESCRIPTION));
                     String stepDescription = data.getString(data.getColumnIndex(StepsEntry.STEPS_DESCRIPTION));
                     String stepVideoUrl = data.getString(data.getColumnIndex(StepsEntry.STEPS_VIDEO_URL));
@@ -159,14 +181,24 @@ public class RecipeActivity extends AppCompatActivity implements
                     stepItems.add(new StepItem(stepId, stepShortDescription, stepDescription, stepVideoUrl, stepThumbnailUrl));
                 }
 
-                //Set RecipeFragmentSteps
+                //Create RecipeFragmentSteps if there is no SavedInstanceState else replace
                 buttonView.setVisibility(View.VISIBLE);
-                RecipeFragmentSteps recipeFragmentSteps = new RecipeFragmentSteps();
-                recipeFragmentSteps.setStepItems(stepItems);
-                recipeFragmentSteps.setTwoPanes(twoPanes);
-                fragmentManager.beginTransaction()
-                        .add(R.id.recipe_fragment_container_steps, recipeFragmentSteps)
-                        .commit();
+                fillerView.setVisibility(View.VISIBLE);
+                if (mSavedInstanceState == null) {
+                    RecipeFragmentSteps recipeFragmentSteps = new RecipeFragmentSteps();
+                    recipeFragmentSteps.setStepItems(stepItems);
+                    recipeFragmentSteps.setTwoPanes(twoPanes);
+                    fragmentManager.beginTransaction()
+                            .add(R.id.recipe_fragment_container_steps, recipeFragmentSteps)
+                            .commit();
+                } else {
+                    RecipeFragmentSteps recipeFragmentSteps = new RecipeFragmentSteps();
+                    recipeFragmentSteps.setStepItems(stepItems);
+                    recipeFragmentSteps.setTwoPanes(twoPanes);
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.recipe_fragment_container_steps, recipeFragmentSteps)
+                            .commit();
+                }
 
                 //Set DetailActivity for onePane and set DetailVideoActivity for twoPanes
                 if (!twoPanes) {
@@ -182,15 +214,29 @@ public class RecipeActivity extends AppCompatActivity implements
                 }
                 if (twoPanes) {
                     buttonView.setVisibility(View.GONE);
-                    DetailVideosFragment newRecipeVideosFragment = new DetailVideosFragment();
-                    newRecipeVideosFragment.setStepIndex(0);
-                    newRecipeVideosFragment.setStepItems(stepItems);
-                    fragmentManager.beginTransaction()
-                            .add(R.id.fragment_video_container_test, newRecipeVideosFragment)
-                            .commit();
+                    fillerView.setVisibility(View.GONE);
+                    if (mSavedInstanceState == null) {
+                        DetailVideosFragment newRecipeVideosFragment = new DetailVideosFragment();
+                        newRecipeVideosFragment.setStepIndex(0);
+                        newRecipeVideosFragment.setStepItems(stepItems);
+
+                        if (mSavedInstanceState == null) {
+                            fragmentManager.beginTransaction()
+                                    .add(R.id.fragment_video_container_test, newRecipeVideosFragment)
+                                    .commit();
+                        }
+                    }
                 }
                 break;
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(ON_SAVED_INSTANCE_RECIPE_NAME, recipeName);
+        outState.putInt(ON_SAVED_INSTANCE_RECIPE_ID, recipeId);
+        outState.putString(ON_SAVED_INSTANCE_RECIPE_IMAGE_URL, recipeImageUrl);
     }
 
     @Override

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/recipe_general_phone_layout"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/recipe_general_phone_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.RecipeActivity">
@@ -118,6 +118,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toBottomOf="@id/recipe_title_steps" />
+
+                <View
+                    android:id="@+id/recipe_container_filler"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/container_regular_large"
+                    app:layout_constraintTop_toBottomOf="@id/recipe_fragment_container_steps" />
 
             </android.support.constraint.ConstraintLayout>
         </android.support.constraint.ConstraintLayout>

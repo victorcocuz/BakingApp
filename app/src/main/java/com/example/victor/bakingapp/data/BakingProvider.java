@@ -11,8 +11,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.example.victor.bakingapp.data.BakingContract.RecipesEntry;
 import com.example.victor.bakingapp.data.BakingContract.IngredientsEntry;
+import com.example.victor.bakingapp.data.BakingContract.RecipesEntry;
 import com.example.victor.bakingapp.data.BakingContract.StepsEntry;
 
 /******
@@ -228,9 +228,9 @@ public class BakingProvider extends ContentProvider {
                 throw new IllegalArgumentException("Update is not supported for " + uri);
         }
 
-        if (rowsUpdated != 0 && getContext() != null) {
-            getContext().getContentResolver().notifyChange(uri, null);
-        }
+//        if (rowsUpdated != 0 && getContext() != null) {
+//            getContext().getContentResolver().notifyChange(uri, null);
+//        }
 
         return rowsUpdated;
     }

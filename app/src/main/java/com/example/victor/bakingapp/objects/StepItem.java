@@ -48,12 +48,6 @@ public class StepItem implements Parcelable {
         return stepThumbnailUrl;
     }
 
-    public void setStepId() { this.stepId = stepId; }
-    public void setStepShortDescription() { this.stepShortDescription = stepShortDescription; }
-    public void setStepDescription() { this.stepDescription = stepDescription; }
-    public void setStepVideoUrl() { this.stepVideoUrl = stepVideoUrl; }
-    public void setStepThumbnailUrl() { this.stepThumbnailUrl = stepThumbnailUrl; }
-
     public StepItem(Parcel in) {
         stepId = in.readInt();
         stepShortDescription = in.readString();

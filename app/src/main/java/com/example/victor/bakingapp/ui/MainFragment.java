@@ -15,8 +15,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.victor.bakingapp.adapters.RecipeAdapter;
 import com.example.victor.bakingapp.R;
+import com.example.victor.bakingapp.adapters.RecipeAdapter;
 import com.example.victor.bakingapp.data.BakingContract;
 
 import java.util.Objects;
@@ -40,11 +40,9 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
         recipesRecyclerView.setHasFixedSize(true);
         recipeAdapter = new RecipeAdapter(getContext());
         recipesRecyclerView.setAdapter(recipeAdapter);
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Objects.requireNonNull(getActivity()).getLoaderManager().initLoader(MainActivity.CURSOR_RECIPE_LOADER_ID, null, this);
         }
-
         return rootView;
     }
 
@@ -61,6 +59,7 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         recipeAdapter.updateRecipes(data);
+
     }
 
     @Override

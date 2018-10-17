@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_baking_app"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="@dimen/margin_xsmall"
+        android:text="@string/app_name"
+        android:textColor="@color/colorText"
+        android:textSize="@dimen/text_title" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/container_line"
+        android:background="@color/colorText"
+        android:contentDescription="@string/line" />
+
+    <ListView
+        android:id="@+id/widget_baking_app_recipe_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="@dimen/margin_xsmall"
+        android:layout_marginRight="@dimen/margin_xsmall"
+        android:layout_marginBottom="@dimen/margin_xsmall"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:numColumns="1" />
+
+    <ListView
+        android:id="@+id/widget_baking_app_step_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/margin_xsmall"
+        android:layout_marginRight="@dimen/margin_xsmall"
+        android:layout_marginBottom="@dimen/margin_xsmall"
+        android:layout_weight="1"
+        android:numColumns="1" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/container_line"
+        android:background="@color/colorText"
+        android:contentDescription="@string/line" />
+
+    <TextView
+        android:id="@+id/widget_baking_app_back_to_recipes"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/container_regular_small"
+        android:background="@color/colorComplementary"
+        android:gravity="center"
+        android:text="@string/back_to_recipes"
+        android:textColor="@color/colorText"
+        android:textSize="@dimen/text_subheader" />
+
+</LinearLayout>

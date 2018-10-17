@@ -127,6 +127,12 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toBottomOf="@id/recipe_title_steps" />
 
+                <View
+                    android:id="@+id/recipe_container_filler"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/container_regular_large"
+                    app:layout_constraintTop_toBottomOf="@id/recipe_fragment_container_steps" />
+
             </android.support.constraint.ConstraintLayout>
         </android.support.constraint.ConstraintLayout>
 

@@ -1,6 +1,5 @@
 package com.example.victor.bakingapp.ui;
 
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -23,6 +22,9 @@ import java.util.ArrayList;
  ******/
 public class RecipeFragmentSteps extends Fragment implements StepAdapter.OnStepClickListener {
     private static final String LOG_TAG = RecipeFragmentSteps.class.getSimpleName();
+    private static final String ON_SAVED_INSTANCE_TWO_PANES = "savedStateTwoPanes";
+    private static final String ON_SAVED_INSTANCE_STEP_ITEMS = "savedStateStepItems";
+    private Bundle mSavedInstanceState;
     private static final int STEPS_ID = 2000;
     private ArrayList<StepItem> stepItems;
     private boolean twoPanes;
@@ -33,14 +35,20 @@ public class RecipeFragmentSteps extends Fragment implements StepAdapter.OnStepC
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_recipe_steps, container, false);
+        mSavedInstanceState = savedInstanceState;
 
-            recyclerView = rootView.findViewById(R.id.recipe_steps_recycler_view);
-            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
-            recyclerView.setLayoutManager(layoutManager);
-            recyclerView.setHasFixedSize(true);
-            recyclerView.setNestedScrollingEnabled(false);
-            stepAdapter = new StepAdapter(getContext(), stepItems, this, twoPanes);
-            recyclerView.setAdapter(stepAdapter);
+        if (savedInstanceState != null) {
+            twoPanes = savedInstanceState.getBoolean(ON_SAVED_INSTANCE_TWO_PANES);
+            stepItems = savedInstanceState.getParcelableArrayList(ON_SAVED_INSTANCE_TWO_PANES);
+        }
+
+        recyclerView = rootView.findViewById(R.id.recipe_steps_recycler_view);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setNestedScrollingEnabled(false);
+        stepAdapter = new StepAdapter(getContext(), stepItems, this, twoPanes);
+        recyclerView.setAdapter(stepAdapter);
         return rootView;
     }
 
@@ -55,13 +63,24 @@ public class RecipeFragmentSteps extends Fragment implements StepAdapter.OnStepC
     @Override
     public void OnStepClick(int stepIndex) {
         if (twoPanes) {
-            FragmentManager fragmentManager = getFragmentManager();
-            DetailVideosFragment newRecipeVideosFragment = new DetailVideosFragment();
-            newRecipeVideosFragment.setStepIndex(stepIndex);
-            newRecipeVideosFragment.setStepItems(stepItems);
-            fragmentManager.beginTransaction()
-                    .replace(R.id.fragment_video_container_test, newRecipeVideosFragment)
-                    .commit();
+            if (mSavedInstanceState == null) {
+                FragmentManager fragmentManager = getFragmentManager();
+                DetailVideosFragment newRecipeVideosFragment = new DetailVideosFragment();
+                newRecipeVideosFragment.setStepIndex(stepIndex);
+                newRecipeVideosFragment.setStepItems(stepItems);
+                if (fragmentManager != null) {
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.fragment_video_container_test, newRecipeVideosFragment)
+                            .commit();
+                }
+            }
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(ON_SAVED_INSTANCE_TWO_PANES, twoPanes);
+        outState.putParcelableArrayList(ON_SAVED_INSTANCE_STEP_ITEMS, stepItems);
     }
 }

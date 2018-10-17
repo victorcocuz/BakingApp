@@ -1,8 +1,9 @@
 package com.example.victor.bakingapp.ui;
 
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.NavUtils;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -16,7 +17,6 @@ import java.util.ArrayList;
 public class DetailActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = DetailActivity.class.getSimpleName();
-    static int recipeId;
     static int stepIndex = 0;
     ArrayList<StepItem> stepItems = new ArrayList<>();
     FragmentManager fragmentManager = getSupportFragmentManager();
@@ -30,8 +30,12 @@ public class DetailActivity extends AppCompatActivity {
         DetailVideosFragment recipeVideosFragment = new DetailVideosFragment();
         if (getIntent() != null) {
             Bundle bundle = getIntent().getExtras();
-            recipeId = bundle.getInt(MainActivity.INTENT_RECIPE_ID);
-            stepItems = bundle.getParcelableArrayList(MainActivity.INTENT_STEP_ITEMS);
+            if (bundle != null) {
+                stepItems = bundle.getParcelableArrayList(MainActivity.INTENT_STEP_ITEMS);
+            }
+            if (bundle != null && bundle.getInt(MainActivity.INTENT_STEP_ID) != 0) {
+                stepIndex = bundle.getInt(MainActivity.INTENT_STEP_ID);
+            }
         }
         if (stepItems != null) {
             recipeVideosFragment.setStepItems(stepItems);
@@ -39,10 +43,12 @@ public class DetailActivity extends AppCompatActivity {
         } else {
             Log.e(LOG_TAG, "Cannot receive step items from intent");
         }
-        fragmentManager.beginTransaction()
-                .add(R.id.fragment_video_container, recipeVideosFragment)
-                .commit();
 
+        if (savedInstanceState == null) {
+            fragmentManager.beginTransaction()
+                    .add(R.id.fragment_video_container, recipeVideosFragment)
+                    .commit();
+        }
 
         // Replace video fragment on click
         TextView previousStepButtonView = findViewById(R.id.activity_detail_previous_step);
@@ -78,5 +84,11 @@ public class DetailActivity extends AppCompatActivity {
         fragmentManager.beginTransaction()
                 .replace(R.id.fragment_video_container, newRecipeVideosFragment)
                 .commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+        NavUtils.navigateUpFromSameTask(this);
+        super.onBackPressed();
     }
 }

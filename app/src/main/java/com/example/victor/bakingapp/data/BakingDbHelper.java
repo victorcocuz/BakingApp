@@ -4,8 +4,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.example.victor.bakingapp.data.BakingContract.RecipesEntry;
 import com.example.victor.bakingapp.data.BakingContract.IngredientsEntry;
+import com.example.victor.bakingapp.data.BakingContract.RecipesEntry;
 import com.example.victor.bakingapp.data.BakingContract.StepsEntry;
 
 /******
@@ -27,12 +27,15 @@ public class BakingDbHelper extends SQLiteOpenHelper {
                 + RecipesEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + RecipesEntry.RECIPES_ID + " INTEGER, "
                 + RecipesEntry.RECIPES_NAME + " TEXT, "
-                + RecipesEntry.RECIPES_SERVING + " TEXT);";
+                + RecipesEntry.RECIPES_SERVING + " TEXT, "
+                + RecipesEntry.RECIPES_IMAGE + " TEXT);";
         db.execSQL(SQL_CREATE_TABLE_RECIPES);
 
         final String SQL_CREATE_TABLE_INGREDIENTS = "CREATE TABLE " + IngredientsEntry.INGREDIENTS_TABLE_NAME + " ("
                 + IngredientsEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + IngredientsEntry.INGREDIENTS_RECIPE_ID + " INTEGER, "
                 + IngredientsEntry.INGREDIENTS_ID + " INTEGER, "
+                + IngredientsEntry.INGREDIENTS_REAL_QUANTITY + " TEXT, "
                 + IngredientsEntry.INGREDIENTS_QUANTITY + " TEXT, "
                 + IngredientsEntry.INGREDIENTS_MEASURE + " TEXT, "
                 + IngredientsEntry.INGREDIENTS_INGREDIENT + " TEXT);";
@@ -40,6 +43,7 @@ public class BakingDbHelper extends SQLiteOpenHelper {
 
         final String SQL_CREATE_TABLE_STEPS = "CREATE TABLE " + StepsEntry.STEPS_TABLE_NAME + " ("
                 + StepsEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + StepsEntry.STEPS_RECIPE_ID + " INTEGER, "
                 + StepsEntry.STEPS_ID + " INTEGER, "
                 + StepsEntry.STEPS_SHORT_DESCRIPTION + " TEXT, "
                 + StepsEntry.STEPS_DESCRIPTION + " TEXT, "

@@ -20,16 +20,22 @@
         <TextView
             android:id="@+id/activity_detail_previous_step"
             style="@style/TextButton"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
             android:text="@string/button_previous_step" />
 
         <View
             android:layout_width="@dimen/container_line"
             android:layout_height="match_parent"
-            android:background="@color/colorText"/>
+            android:background="@color/colorText" />
 
         <TextView
             android:id="@+id/activity_detail_next_step"
             style="@style/TextButton"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
             android:text="@string/button_next_step" />
     </LinearLayout>
 

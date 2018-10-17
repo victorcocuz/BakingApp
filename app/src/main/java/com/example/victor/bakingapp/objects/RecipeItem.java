@@ -46,12 +46,6 @@ public class RecipeItem implements Parcelable {
     public List<StepItem> getRecipeStepItems() { return recipeStepItems; }
     public String getRecipeServing() { return recipeServing; }
 
-    public void setRecipeId(int recipeId) { this.recipeId = recipeId;}
-    public void setRecipeName(String recipeName) { this.recipeName = recipeName; }
-    public void setRecipeIngredientItems(List<IngredientItem> recipeIngredientItems) { this.recipeIngredientItems = recipeIngredientItems; }
-    public void setRecipeStepItems(List<StepItem> recipeStepItems) { this.recipeStepItems = recipeStepItems; }
-    public void setRecipeServing(String recipeServing) { this.recipeServing = recipeServing; }
-
     @SuppressWarnings("unchecked")
     public RecipeItem(Parcel in) {
         recipeId = in.readInt();

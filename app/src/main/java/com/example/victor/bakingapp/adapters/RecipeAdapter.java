@@ -12,11 +12,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.victor.bakingapp.R;
-import com.example.victor.bakingapp.resources.Assets;
+import com.example.victor.bakingapp.data.BakingContract.RecipesEntry;
 import com.example.victor.bakingapp.ui.MainActivity;
 import com.example.victor.bakingapp.ui.RecipeActivity;
-
-import com.example.victor.bakingapp.data.BakingContract.RecipesEntry;
+import com.squareup.picasso.Picasso;
 
 /******
  * Created by Victor on 8/18/2018.
@@ -40,10 +39,12 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
     @Override
     public void onBindViewHolder(@NonNull RecipeViewHolder holder, final int position) {
-        holder.recipeImageView.setImageResource(Assets.getCakeImages().get(position));
+
         recipesCursor.moveToPosition(position);
         final int recipeId = recipesCursor.getInt(recipesCursor.getColumnIndex(RecipesEntry.RECIPES_ID));
         final String recipeName = recipesCursor.getString(recipesCursor.getColumnIndex(RecipesEntry.RECIPES_NAME));
+        final String recipeImageUrl = recipesCursor.getString(recipesCursor.getColumnIndex(RecipesEntry.RECIPES_IMAGE));
+        Picasso.get().load(recipeImageUrl).into(holder.recipeImageView);
 
         holder.recipeTextView.setText(recipeName);
         holder.recipeImageView.setOnClickListener(new View.OnClickListener() {
@@ -52,6 +53,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
                 Intent goToRecipeActivity = new Intent(context, RecipeActivity.class);
                 goToRecipeActivity.putExtra(MainActivity.INTENT_RECIPE_ID, recipeId);
                 goToRecipeActivity.putExtra(MainActivity.INTENT_RECIPE_NAME, recipeName);
+                goToRecipeActivity.putExtra(MainActivity.INTENT_RECIPE_IMAGE_URL, recipeImageUrl);
                 context.startActivity(goToRecipeActivity);
             }
         });

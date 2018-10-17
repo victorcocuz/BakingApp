@@ -40,10 +40,6 @@ public class IngredientItem implements Parcelable {
         return ingredientIngredient;
     }
 
-    public void setIngredientQuantity() { this.ingredientQuantity = ingredientQuantity; }
-    public void setIngredientMeasure() { this.ingredientMeasure = ingredientMeasure; }
-    public void setIngredientIngredient() { this.ingredientIngredient = ingredientIngredient; }
-
     protected IngredientItem(Parcel in) {
         ingredientQuantity = in.readString();
         ingredientMeasure = in.readString();

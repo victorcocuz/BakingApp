@@ -2,17 +2,13 @@ package com.example.victor.bakingapp.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.victor.bakingapp.R;
-
-import com.example.victor.bakingapp.data.BakingContract.StepsEntry;
 import com.example.victor.bakingapp.objects.StepItem;
 
 import java.util.ArrayList;
@@ -71,15 +67,13 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepViewHolder
         private TextView stepsNumberView;
         private TextView stepsShortDescriptionView;
         private TextView stepsDescriptionView;
-        private CardView stepsCardView;
 
-        public StepViewHolder(View itemView) {
+        StepViewHolder(View itemView) {
             super(itemView);
             stepsTitleView = itemView.findViewById(R.id.layout_recipe_steps_title);
             stepsNumberView = itemView.findViewById(R.id.layout_recipe_steps_number);
             stepsShortDescriptionView = itemView.findViewById(R.id.layout_recipe_steps_short_description);
             stepsDescriptionView = itemView.findViewById(R.id.layout_recipe_steps_description);
-            stepsCardView = itemView.findViewById(R.id.layout_recipe_steps_card_view);
             itemView.setOnClickListener(this);
         }
 

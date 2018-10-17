@@ -3,7 +3,6 @@ package com.example.victor.bakingapp.data;
 import android.content.ContentResolver;
 import android.net.Uri;
 import android.provider.BaseColumns;
-import android.util.Log;
 
 /******
  * Created by Victor on 8/21/2018.
@@ -34,6 +33,7 @@ public class BakingContract {
         public static final String RECIPES_ID = "recipesId";
         public static final String RECIPES_NAME = "recipesName";
         public static final String RECIPES_SERVING = "recipesServing";
+        public static final String RECIPES_IMAGE = "recipesImage";
     }
 
     public static final class IngredientsEntry implements BaseColumns {
@@ -42,7 +42,9 @@ public class BakingContract {
                 .build();
 
         public static final String INGREDIENTS_TABLE_NAME = "ingredientsTable";
+        public static final String INGREDIENTS_RECIPE_ID = "ingredientsRecipeId";
         public static final String INGREDIENTS_ID = "ingredientsId";
+        public static final String INGREDIENTS_REAL_QUANTITY = "ingredientsRealQuantity";
         public static final String INGREDIENTS_QUANTITY = "ingredientsQuantity";
         public static final String INGREDIENTS_MEASURE = "ingredientsMeasure";
         public static final String INGREDIENTS_INGREDIENT = "ingredientsIngredient";
@@ -54,6 +56,7 @@ public class BakingContract {
                 .build();
 
         public static final String STEPS_TABLE_NAME = "stepsTable";
+        public static final String STEPS_RECIPE_ID = "stepsRecipeId";
         public static final String STEPS_ID = "stepsId";
         public static final String STEPS_SHORT_DESCRIPTION = "stepsShortDescription";
         public static final String STEPS_DESCRIPTION = "stepsDescription";

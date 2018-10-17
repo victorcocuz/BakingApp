@@ -3,10 +3,12 @@
     <string name="recipe_image">Recipe Image</string>
     <string name="background_gradient">Background Gradient</string>
 
-    <string name="list_nutella_pie">Nutella Pie</string>
-    <string name="list_brownies">Brownies</string>
-    <string name="list_cheese_cake">Cheese Cake</string>
-    <string name="list_yellow_cake">Yellow cake</string>
+    <string-array name="list_images_url">
+        <item>https://sallysbakingaddiction.com/wp-content/uploads/2016/10/nutella-tart-3.jpg</item>
+        <item>https://i.ytimg.com/vi/lIb_741_dIw/maxresdefault.jpg</item>
+        <item>https://d2gk7xgygi98cy.cloudfront.net/4587-3-large.jpg</item>
+        <item>https://www.seriouseats.com/recipes/images/2017/06/20170526-no-bake-cheesecake-vicky-wasik-18-1500x1125.jpg</item>
+    </string-array>
 
     <string name="button_start_cooking">Start Cooking</string>
     <string name="button_previous_step">Previous Step</string>
@@ -30,5 +32,12 @@
 
     <string name="toast_no_previous_step">There is no previous step</string>
     <string name="toast_no_next_step">This is the final step</string>
+    <string name="toast_minimum_servings">Ingredients are for at least one person</string>
+    <string name="toast_maximum_servings">Ingredients are for maximum 12 people</string>
 
+
+    //Widget
+    <string name="line">Line</string>
+    <string name="add_widget">Add widget</string>
+    <string name="back_to_recipes">Back to Recipes</string>
 </resources>

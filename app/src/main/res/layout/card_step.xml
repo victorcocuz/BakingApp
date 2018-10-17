@@ -7,7 +7,7 @@
     android:layout_marginBottom="@dimen/margin_medium"
     android:clickable="true"
     android:foreground="?android:attr/selectableItemBackground"
-    app:cardBackgroundColor="@color/colorPrimary"
+    app:cardBackgroundColor="@color/colorComplementary"
     android:focusable="true">
 
     <include layout="@layout/layout_recipe_steps" />
